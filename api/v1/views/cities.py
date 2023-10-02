@@ -25,7 +25,7 @@ def city_api(city_id):
         if not body:
             abort(400, 'Not a JSON')
 
-        ignore = ['id', 'created_at', 'update_at', 'state_id']
+        ignore = ['id', 'created_at', 'updated_at', 'state_id']
         for key, value in body.items():
             if key not in ignore:
                 setattr(city, key, value)

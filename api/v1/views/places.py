@@ -26,7 +26,7 @@ def reviews(place_id):
         if not body:
             abort(400, 'Not a JSON')
 
-        ignore = ['id', 'user_id', 'city_id', 'created_at', 'update_at']
+        ignore = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
         for key, value in body.items():
             if key not in ignore:
                 setattr(place, key, value)
@@ -50,7 +50,7 @@ def city_places(city_id):
         if 'user_id' not in body:
             abort(400, 'Missing user_id')
         user = storage.get(User, body['user_id'])
-        if not user:
+        if user is None:
             abort(404)
         if 'name' not in body:
             abort(400, 'Missing name')
