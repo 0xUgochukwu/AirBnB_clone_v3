@@ -2,6 +2,7 @@
 '''
     Implementation of the User class which inherits from BaseModel
 '''
+import hashlib
 from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
@@ -27,3 +28,15 @@ class User(BaseModel, Base):
         password = ""
         first_name = ""
         last_name = ""
+
+
+
+    def __setattr__(self, name, value):
+        '''
+            Set attribute for a User
+        '''
+        if name == 'password':
+            pwhash = hashlib.md5(bytes(str(value), 'utf-8'))
+            super().__setattr__(name, pwhash.hexdigest())
+        else:
+            super().__setattr__(name, value)

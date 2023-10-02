@@ -2,6 +2,7 @@
 '''
     This module defines the BaseModel class
 '''
+import inspect
 from os import getenv
 import uuid
 from datetime import datetime
@@ -76,6 +77,13 @@ class BaseModel:
         cp_dct['__class__'] = self.__class__.__name__
         cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        prev = inspect.currentframe().f_back
+        func = prev.f_code.co_name
+        nspc = prev.f_locals  # namespace
+        cls = nspc['self'].__class__.__name__ if 'self' in nspc else None
+        if 'password' in cp_dct and not (
+                func == 'save' and cls == 'FileStorage'):
+            del cp_dct['password']
         if hasattr(self, "_sa_instance_state"):
             del cp_dct["_sa_instance_state"]
         return (cp_dct)
