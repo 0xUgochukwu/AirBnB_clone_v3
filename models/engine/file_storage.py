@@ -91,9 +91,9 @@ class FileStorage:
         counter = 0
         if cls is not None:
             for key in self.__objects:
-                counter += 1
+               counter += 1
         else:
             if cls is None:
-                for key in self.__objects:
-                    counter += 1
+               for key in self.__objects:
+                   counter += 1
         return counter
