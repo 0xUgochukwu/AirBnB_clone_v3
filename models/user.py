@@ -29,8 +29,6 @@ class User(BaseModel, Base):
         first_name = ""
         last_name = ""
 
-
-
     def __setattr__(self, name, value):
         '''
             Set attribute for a User
