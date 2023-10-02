@@ -62,4 +62,4 @@ def city_places(city_id):
         return make_response(jsonify(new_place.to_dict()), 201)
 
     else:
-        return jsonify([place.to_dict()] for place in city.places)
+        return jsonify([place.to_dict() for place in city.places])
