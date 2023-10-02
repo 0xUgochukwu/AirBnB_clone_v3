@@ -11,7 +11,8 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE', 'POST'])
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE', 'POST'])
 def alter_place_amenities(place_id, amenity_id):
     """ Deletes or Creates an amenity """
     place = storage.get(Place, place_id)
@@ -29,7 +30,7 @@ def alter_place_amenities(place_id, amenity_id):
         if db == 'DBStorage':
             place.amenities.remove(amenity)
         else:
-            amenity_ids.remove(amenity.id)
+            place.amenity_ids.remove(amenity.id)
         return make_response(jsonify({}), 200)
     else:
         if amenity in amenities:
