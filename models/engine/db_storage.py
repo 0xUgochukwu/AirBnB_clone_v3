@@ -71,11 +71,8 @@ class DBStorage:
         '''
             Retrieve one object
         '''
-        obj_list = self.__session.query(eval(cls)).all()
-        for obj in obj_list:
-            if obj.id == str(id):
-                return obj
-        return None
+        obj = self.__session.query(cls).filter_by(id=str(id)).first()
+        return obj or None
 
     def count(self, cls=None):
         '''
