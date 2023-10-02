@@ -22,11 +22,12 @@ def alter_place_amenities(place_id, amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     db = storage.__class__.__name__
 
-    if amenity is None or\
-            amenity not in amenities and request.method == 'DELETE':
+    if amenity is None:
         abort(404)
 
     if request.method == 'DELETE':
+        if amenity.to_dict() not in amenities:
+            abort(404)
         if db == 'DBStorage':
             place.amenities.remove(amenity)
         else:
@@ -35,7 +36,7 @@ def alter_place_amenities(place_id, amenity_id):
         return make_response(jsonify({}), 200)
     else:
         if amenity in amenities:
-            return jsonify(amenity.to_dict())
+            return jsonify(amenity.to_dict()), 200
         if db == 'DBStorage':
             place.amenities.append(amenity)
         else:
@@ -47,7 +48,6 @@ def alter_place_amenities(place_id, amenity_id):
 @app_views.route('/places/<place_id>/amenities', methods=['GET'])
 def place_amenities(place_id):
     """ Retrieves amenities for a place """
-    print(storage.__class__.__name__)
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
