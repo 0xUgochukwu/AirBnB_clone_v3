@@ -18,9 +18,13 @@ def alter_place_amenities(place_id, amenity_id):
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    amenities = [amenity.to_dict() for amenity in place.amenities]
-    amenity = storage.get(Amenity, amenity_id)
     db = storage.__class__.__name__
+    if db == 'DBStorage':
+        amenities = [storage.get(Amenity, amenity_id).to_dict()
+               for amenity_id in obj_place.amenity_ids]
+    else:
+        amenities = [amenity.to_dict() for amenity in place.amenities]
+    amenity = storage.get(Amenity, amenity_id)
 
     if amenity is None:
         abort(404)
