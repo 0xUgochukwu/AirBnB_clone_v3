@@ -71,17 +71,7 @@ class Place(BaseModel, Base):
             '''
             list_amenities = []
             for amenity in models.storage.all(Amenity).values():
-                if amenity.place_id == self.id:
+                if amenity.id in amenity_ids:
                     amenity_list.append(amenity)
             return list_amenities
 
-        @amenities.setter
-        def amenities(self, amenity=None):
-            '''
-                Set list: amenity instances if Amenity.place_id==curr place.id
-                Set by adding instance objs to amenity_ids attribute in Place
-            '''
-            if amenity:
-                for amenity in models.storage.all(Amenity).values():
-                    if amenity.place_id == self.id:
-                        amenity_ids.append(amenity)
