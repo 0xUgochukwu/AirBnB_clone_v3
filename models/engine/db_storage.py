@@ -36,24 +36,14 @@ class DBStorage:
         '''
             Query current database session
         '''
-        db_dict = {}
-
-        if cls != "":
-            objs = self.__session.query(models.classes[cls]).all()
-            for obj in objs:
-                key = "{}.{}".format(obj.__class__.__name__, obj.id)
-                db_dict[key] = obj
-            return db_dict
-        else:
-            for k, v in models.classes.items():
-                if k != "BaseModel":
-                    objs = self.__session.query(v).all()
-                    if len(objs) > 0:
-                        for obj in objs:
-                            key = "{}.{}".format(obj.__class__.__name__,
-                                                 obj.id)
-                            db_dict[key] = obj
-            return db_dict
+        new_dict = {}
+        for clss in models.classes:
+            if cls is None or cls is models.classes[clss] or cls is clss:
+                objs = self.__session.query(models.classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         '''
