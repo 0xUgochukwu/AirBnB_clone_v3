@@ -33,7 +33,7 @@ def places(review_id):
         storage.save()
         return make_response(jsonify(review.to_dict()), 200)
     else:
-        return jsonify(review.to_dict)
+        return jsonify(review.to_dict())
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET', 'POST'])
