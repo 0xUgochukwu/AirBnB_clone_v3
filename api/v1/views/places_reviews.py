@@ -26,7 +26,7 @@ def places(review_id):
         if not body:
             abort(400, 'Not a JSON')
 
-        ignore = ['id', 'created_at', 'update_at', 'state_id']
+        ignore = ['id', 'user_id', 'place_id', 'created_at', 'update_at']
         for key, value in body.items():
             if key not in ignore:
                 setattr(review, key, value)
