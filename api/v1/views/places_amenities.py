@@ -40,7 +40,7 @@ def alter_place_amenities(place_id, amenity_id):
         return make_response(jsonify({}), 200)
     else:
         if amenity in amenities:
-            return jsonify(amenity.to_dict()), 200)
+            return make_response(jsonify(amenity.to_dict()), 200)
         if db == 'DBStorage':
             place.amenities.append(amenity)
         else:
