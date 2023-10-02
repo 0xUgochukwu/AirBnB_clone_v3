@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-API Module that gets the status of api and stats
+API Module that gets the status of api and stats of the app
 """
 import sys
 from flask import jsonify
