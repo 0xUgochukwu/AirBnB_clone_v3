@@ -11,7 +11,7 @@ from flask import abort, jsonify, make_response, request
 
 
 @app_views.route('/places/<place_id>', methods=['GET', 'DELETE', 'PUT'])
-def places(place_id):
+def reviews(place_id):
     """ Retrieves, Deletes and Updates the details of a place """
     place = storage.get(Place, place_id)
     if place is None:
