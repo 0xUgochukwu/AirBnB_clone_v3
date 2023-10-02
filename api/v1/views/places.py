@@ -50,7 +50,7 @@ def city_places(city_id):
         if 'user_id' not in body:
             abort(400, 'Missing user_id')
         user = storage.get(User, body['user_id'])
-        if user is None:
+        if not user:
             abort(404)
         if 'name' not in body:
             abort(400, 'Missing name')
