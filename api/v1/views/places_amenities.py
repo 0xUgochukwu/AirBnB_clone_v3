@@ -31,6 +31,7 @@ def alter_place_amenities(place_id, amenity_id):
             place.amenities.remove(amenity)
         else:
             place.amenity_ids.remove(amenity.id)
+        storage.save()
         return make_response(jsonify({}), 200)
     else:
         if amenity in amenities:
@@ -39,6 +40,7 @@ def alter_place_amenities(place_id, amenity_id):
             place.amenities.append(amenity)
         else:
             place.amenity_ids.append(amenity.id)
+        storage.save()
         return make_response(jsonify(amenity.to_dict()), 201)
 
 
