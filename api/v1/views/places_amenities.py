@@ -55,4 +55,10 @@ def place_amenities(place_id):
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    return jsonify([amenity.to_dict() for amenity in place.amenities])
+    db = storage.__class__.__name__
+    if db == 'DBStorage':
+        amenities = [amenity.to_dict() for amenity in place.amenities]
+    else:
+        amenities = [storage.get(Amenity, amenity_id).to_dict()
+                     for amenity_id in place.amenity_ids]
+    return jsonify(amenities)
