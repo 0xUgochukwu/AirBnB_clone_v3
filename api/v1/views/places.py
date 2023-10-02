@@ -4,8 +4,8 @@ view for Place objects that handles all default RESTFul API actions
 """
 from models import storage
 from models.city import City
-from models.Place import Place
-from models.User import User
+from models.place import Place
+from models.user import User
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 
