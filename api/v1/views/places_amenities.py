@@ -21,7 +21,7 @@ def alter_place_amenities(place_id, amenity_id):
     db = storage.__class__.__name__
     if db == 'DBStorage':
         amenities = [storage.get(Amenity, amenity_id).to_dict()
-               for amenity_id in obj_place.amenity_ids]
+                     for amenity_id in place.amenity_ids]
     else:
         amenities = [amenity.to_dict() for amenity in place.amenities]
     amenity = storage.get(Amenity, amenity_id)
