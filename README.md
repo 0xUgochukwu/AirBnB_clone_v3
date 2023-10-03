@@ -45,7 +45,7 @@ List of commands this console current supports:
 * `def save(self)` - Updates the attribute `updated_at` with the current datetime
 * `def to_dict(self)` - returns a dictionary containing all keys/values of the instance
 
-Classes inherited frm Base Model:
+Classes inherited from Base Model:
 * [amenity.py](/models/amenity.py)
 * [city.py](/models/city.py)
 * [place.py](/models/place.py)
