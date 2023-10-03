@@ -29,7 +29,7 @@ This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.
 ## File Descriptions
 [console.py](console.py) - the console contains the entry point of the command interpreter. 
 List of commands this console current supports:
-* `EOF` - exits console
+* `EOF` - exits consolee
 * `quit` - exits conosle
 * `<emptyline>` - overwrites default emptyline method and does nothing
 * `create` - Creates a new instance of`BaseModel`, saves it (to the JSON file) and prints the id
