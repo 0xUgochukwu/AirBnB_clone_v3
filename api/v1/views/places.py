@@ -3,8 +3,10 @@
 view for Place objects that handles all default RESTFul API actions
 """
 from models import storage
+from models.amenity import Amenity
 from models.city import City
 from models.place import Place
+from models.state import State
 from models.user import User
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
@@ -71,9 +73,11 @@ def add_place(place, arr, amenities):
         for amenity_id in amenities:
             amenity = storage.get(Amenity, amenity_id)
             if amenity.to_dict() in place.amenities:
-                arr.add(place.to_dict())
+                if place.to_dict() not in arr:
+                    arr.append(place.to_dict())
     else:
-        arr.add(place.to_dict())
+        if place.to_dict() not in arr:
+            arr.append(place.to_dict())
 
 @app_views.route('/places_search', methods=['POST'])
 def places_search():
@@ -86,25 +90,27 @@ def places_search():
     if not body:
         abort(400, 'Not a JSON')
 
-    if len(body) == 0 or ['states', 'cities'] not in body.keys():
-        if 'amenities' in body and len(body.amenities) != 0:
+    amenities = body['amenities'] if 'amenities' in body else []
+    if len(body) == 0 or (('states' not in body.keys() or len(body['states']) == 0)
+                            and ('cities' not in body.keys()) or len(body['cities']) == 0):
+        if 'amenities' in body and len(amenities) != 0:
             for place in storage.all(Place):
-                add_place(place, result, body.amenities)
+                add_place(place, result, amenities)
             return jsonify(result)
         else:
-            return jsonify(storage.all(Place))
+            return jsonify([p.to_dict() for p in storage.all(Place).values()])
 
     if 'states' in body:
         for state_id in body['states']:
             state = storage.get(State, state_id)
             for city in state.cities:
                 for place in city.places:
-                    add_place(place, result, body.amenities)
+                    add_place(place, result, amenities)
 
     if 'cities' in body:
-        for city_id in body.cities:
+        for city_id in body['cities']:
             city = storage.get(City, city_id)
             for place in city.places:
-                add_place(place, result, body.amenities)
+                add_place(place, result, amenities)
     
     return jsonify(result)
