@@ -62,7 +62,7 @@ Classes inherited from Base Model:
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
-TestBaseModelDocs class:
+TestBaseModelDoc class:
 * `def setUpClass(cls)`- Set up for the doc tests
 * `def test_pep8_conformance_base_model(self)` - Test that models/base_model.py conforms to PEP8
 * `def test_pep8_conformance_test_base_model(self)` - Test that tests/test_models/test_base_model.py conforms to PEP8
