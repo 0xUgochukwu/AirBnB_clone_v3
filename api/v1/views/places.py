@@ -93,11 +93,12 @@ def places_search():
         abort(400, 'Not a JSON')
 
     amenities = body['amenities'] if 'amenities' in body else []
-    if len(body) == 0 or (('states' not in body.keys()
-                           or len(body['states']) == 0)
-                          and ('cities' not in body.keys())
-                          or len(body['cities']) == 0):
-        if 'amenities' in body and len(amenities) != 0:
+
+    if body is None or (
+            body.get('states') is None and
+            body.get('cities') is None and
+            ):
+        if body.get('amenities') is not None
             for place in storage.all(Place):
                 add_place(place, result, amenities)
             return jsonify(result)
