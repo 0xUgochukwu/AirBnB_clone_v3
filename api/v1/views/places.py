@@ -66,6 +66,7 @@ def city_places(city_id):
     else:
         return jsonify([place.to_dict() for place in city.places])
 
+
 def add_place(place, arr, amenities):
     if place in arr:
         return
@@ -79,6 +80,7 @@ def add_place(place, arr, amenities):
         if place.to_dict() not in arr:
             arr.append(place.to_dict())
 
+
 @app_views.route('/places_search', methods=['POST'])
 def places_search():
     """
@@ -91,8 +93,10 @@ def places_search():
         abort(400, 'Not a JSON')
 
     amenities = body['amenities'] if 'amenities' in body else []
-    if len(body) == 0 or (('states' not in body.keys() or len(body['states']) == 0)
-                            and ('cities' not in body.keys()) or len(body['cities']) == 0):
+    if len(body) == 0 or (('states' not in body.keys()
+                           or len(body['states']) == 0)
+                          and ('cities' not in body.keys())
+                          or len(body['cities']) == 0):
         if 'amenities' in body and len(amenities) != 0:
             for place in storage.all(Place):
                 add_place(place, result, amenities)
@@ -112,5 +116,5 @@ def places_search():
             city = storage.get(City, city_id)
             for place in city.places:
                 add_place(place, result, amenities)
-    
+
     return jsonify(result)
