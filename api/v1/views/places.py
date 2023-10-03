@@ -94,11 +94,9 @@ def places_search():
 
     amenities = body['amenities'] if 'amenities' in body else []
 
-    if body is None or (
-            body.get('states') is None and
-            body.get('cities') is None and
-            ):
-        if body.get('amenities') is not None
+    if body is None or (body.get('states') is None
+                        and body.get('cities') is None):
+        if body.get('amenities') is not None:
             for place in storage.all(Place):
                 add_place(place, result, amenities)
             return jsonify(result)
