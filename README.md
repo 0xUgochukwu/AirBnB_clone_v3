@@ -3,7 +3,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
-* Retrieve an object from a file, a database etc..
+* Retrieve an object from a file, a database etc...
 * Do operations on objects (count, compute stats, etc...)
 * Update attributes of an object
 * Destroy an object
@@ -24,7 +24,7 @@ This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.
 * Clone this repository: `git clone "https://github.com/Chloe7243/AirBnB_clone_v3.git"`
 * Access AirBnb directory: `cd AirBnB_clone_v3`
 * Run hbnb(interactively): `./console` and enter command
-* Run hbnb(non-interactively): `echo "<command>" | ./console.py`
+* Run hbnb(non-interactively): `echo "<command" | ./console.py`
 
 ## File Descriptions
 [console.py](console.py) - the console contains the entry point of the command interpreter. 
