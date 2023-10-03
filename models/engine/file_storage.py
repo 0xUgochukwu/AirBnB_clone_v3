@@ -85,15 +85,8 @@ class FileStorage:
         for key, value in string_dict.items():
             if key == cls + "." + id:
                 return value
+        return None
 
     def count(self, cls=None):
         """returns the count of all objects in the storage"""
-        counter = 0
-        if cls is not None:
-            for key in self.__objects:
-                counter += 1
-        else:
-            if cls is None:
-                for key in self.__objects:
-                    counter += 1
-        return counter
+        return len(self.all(cls))
